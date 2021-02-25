@@ -1,22 +1,25 @@
 {
   "name": "node-blog",
   "version": "1.0.0",
-  "description": "node blog",
-  "main": "app.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Melek",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melekv/node-blog.git"
+  },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melekv/node-blog/issues"
+  },
+  "homepage": "https://github.com/melekv/node-blog#readme",
   "dependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.16.3",
-    "marked": "^2.0.0",
-    "method-override": "^3.0.0",
-    "mongoose": "^5.11.17",
-    "slugify": "^1.4.7"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18"
   }
 }
