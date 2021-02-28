@@ -13,10 +13,14 @@ mongoose.connect(process.env.LOCAL_DB_URI, {
 });
 
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
     const posts = await Post.find({});
-    res.render('index', { pageTitle: 'Blog | głowna', posts: posts });
+    res.render('index', {
+        pageTitle: 'Blog | głowna',
+        posts: posts
+    });
 });
 
 app.use('/post', postRouter);

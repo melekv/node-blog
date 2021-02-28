@@ -1,3 +1,13 @@
 <%- include('header'); %>
 <h1>Hello all</h1>
+<a href="/post/new" class="btn btn-info m-2">Nowy post</a>
+<% posts.forEach(post => { %>
+<div class="card">
+    <div class="card-header"><%= post.title %></div>
+    <div class="card-body">
+        <p class="text-muted"><%= post.createdAt.toLocaleDateString() %></p>
+        <p class="card-text"><%= post.description %></p>
+    </div>
+</div>
+<% }) %>
 <%- include('footer'); %>
