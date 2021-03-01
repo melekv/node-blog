@@ -1,12 +1,18 @@
 <%- include('header'); %>
 <h1>Hello all</h1>
-<a href="/post/new" class="btn btn-info m-2">Nowy post</a>
+<a href="/post/new" class="btn btn-info mb-2">Nowy post</a>
 <% posts.forEach(post => { %>
-<div class="card">
+<div class="card mb-2">
     <div class="card-header"><%= post.title %></div>
     <div class="card-body">
         <p class="text-muted"><%= post.createdAt.toLocaleDateString() %></p>
         <p class="card-text"><%= post.description %></p>
+    </div>
+    <div class="m-2">
+        <a href="post/edit/<%= post.id %>" class="btn btn-primary">Edytuj</a>
+        <form action="/post/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-secondary">Usuń</button>
+        </form>
     </div>
 </div>
 <% }) %>

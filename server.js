@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Post = require('./src/models/post');
 const postRouter = require('./router/post_router');
 const Article = require('./src/models/post');
+const methodOverride = require('method-override');
 const app = express();
 
 mongoose.connect(process.env.LOCAL_DB_URI, {
@@ -14,6 +15,7 @@ mongoose.connect(process.env.LOCAL_DB_URI, {
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.get('/', async (req, res) => {
     const posts = await Post.find({});
