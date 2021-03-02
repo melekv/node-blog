@@ -50,6 +50,18 @@ router.post('/', async (req, res) => {
     res.redirect('/');
 });
 
+router.get('/edit/:id', async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    res.render('posts/edit', {
+        pageTitle: 'Blog | edytuj',
+        post: post,
+        error: {
+            title: '',
+            description: ''
+        }
+    });
+});
+
 router.delete('/:id', async (req, res) => {
     await Post.findByIdAndDelete(req.params.id);
     res.redirect('/');
