@@ -13,7 +13,7 @@ router.get('/new', (req, res) => {
     });
 });
 
-router.post('/', async (req, res) => {
+router.post('/new', async (req, res) => {
     const { title, description } = req.body;
     let titleErr = false;
     let descErr = false;
@@ -21,13 +21,13 @@ router.post('/', async (req, res) => {
     let post = new Post();
 
     // validation
-    if (title.length <= 3) {
+    if (title.length < 3) {
         titleErr = true;
     } else {
         post.title = title;
     }
 
-    if (description.length <= 3) {
+    if (description.length < 3) {
         descErr = true;
     } else {
         post.description = description;
@@ -38,14 +38,13 @@ router.post('/', async (req, res) => {
             pageTitle: 'Blog | nowy post',
             post: post,
             error: {
-                title: 'Error title',
-                description: ''
+                title: titleErr ? 'Tytuł powinien być dłuższy niż 3 znaki' : '',
+                description: descErr ? 'Treść powinna być dłuższa niż 3 znaki' : ''
             }
         });
         return;
     }
 
-    post.description = description;
     await post.save();
     res.redirect('/');
 });
@@ -64,6 +63,42 @@ router.get('/edit/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     await Post.findByIdAndDelete(req.params.id);
+    res.redirect('/');
+});
+
+router.put('/:id', async (req, res) => {
+    const { title, description } = req.body;
+    let titleErr = false;
+    let descErr = false;
+
+    let post = new Post();
+
+    // validation
+    if (title.length < 3) {
+        titleErr = true;
+    } else {
+        post.title = title;
+    }
+
+    if (description.length < 3) {
+        descErr = true;
+    } else {
+        post.description = description;
+    }
+
+    if (titleErr || descErr) {
+        res.render('posts/new', {
+            pageTitle: 'Blog | nowy post',
+            post: post,
+            error: {
+                title: titleErr ? 'Tytuł powinien być dłuższy niż 3 znaki' : '',
+                description: descErr ? 'Treść powinna być dłuższa niż 3 znaki' : ''
+            }
+        });
+        return;
+    }
+
+    await post.save();
     res.redirect('/');
 });
 
